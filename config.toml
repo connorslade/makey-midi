@@ -1,10 +1,11 @@
 [midi]
 channel = 0
 keymap = [
-    { key = 'KeyW', note = 59 },
-    { key = 'UpArrow', note = 60 },
-    { key = 'DownArrow', note = 62 },
-    { key = 'LeftArrow', note = 64 },
-    { key = 'RightArrow', note = 65 },
-    { key = 'Space', note = 67 },
+    { key = 'KeyW', note = 59 },       # B
+    { key = 'UpArrow', note = 60 },    # C
+    { key = 'DownArrow', note = 62 },  # D
+    { key = 'LeftArrow', note = 64 },  # E
+    { key = 'RightArrow', note = 65 }, # F
+    { key = 'Space', note = 67 },      # G
+    { key = 'KeyM', note = 69 },       # A
 ]
