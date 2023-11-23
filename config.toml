@@ -1,0 +1,10 @@
+[midi]
+channel = 0
+keymap = [
+    { key = 'KeyW', note = 59 },
+    { key = 'UpArrow', note = 60 },
+    { key = 'DownArrow', note = 62 },
+    { key = 'LeftArrow', note = 64 },
+    { key = 'RightArrow', note = 65 },
+    { key = 'Space', note = 67 },
+]
