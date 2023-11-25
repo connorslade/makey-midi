@@ -1,4 +1,3 @@
-[midi]
 channel = 0
 keymap = [
     { key = 'KeyW', note = 59 },       # B

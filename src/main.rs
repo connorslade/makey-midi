@@ -1,7 +1,7 @@
 use std::{collections::HashSet, fs};
 
 use anyhow::Result;
-use midir::{os::unix::VirtualOutput, MidiOutput, MidiOutputConnection};
+use midir::{MidiOutput, MidiOutputConnection};
 use midly::{live::LiveEvent, num::u7, MidiMessage};
 use rdev::{listen, Event, EventType, Key};
 
@@ -19,9 +19,10 @@ fn main() -> Result<()> {
     let raw_config = fs::read_to_string("config.toml")?;
     let config = toml::from_str::<Config>(&raw_config)?;
 
-    let output = MidiOutput::new("makey-midi output")?
-        .create_virtual("makey-midi output")
-        .unwrap();
+    let output = MidiOutput::new("makey-midi output")?;
+    let port = output.ports();
+    let port = port.iter().next().unwrap();
+    let output = output.connect(port, "makey-midi output")?;
 
     let mut app = MakeyMidi {
         config,
@@ -42,7 +43,7 @@ fn callback(app: &mut MakeyMidi, event: Event) {
                 return;
             }
 
-            let key = app.config.midi.get_key(e);
+            let key = app.config.get_key(e);
             key.map(|x| MidiMessage::NoteOn {
                 key: x.into(),
                 vel: u7::max_value(),
@@ -51,7 +52,7 @@ fn callback(app: &mut MakeyMidi, event: Event) {
         EventType::KeyRelease(e) => {
             app.pressed.remove(&e);
 
-            let key = app.config.midi.get_key(e);
+            let key = app.config.get_key(e);
             key.map(|x| MidiMessage::NoteOff {
                 key: x.into(),
                 vel: u7::max_value(),
@@ -63,7 +64,7 @@ fn callback(app: &mut MakeyMidi, event: Event) {
     if let Some(event) = event {
         let mut buf = Vec::new();
         LiveEvent::Midi {
-            channel: app.config.midi.channel.into(),
+            channel: app.config.channel.into(),
             message: event,
         }
         .write(&mut buf)
