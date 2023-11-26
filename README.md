@@ -45,6 +45,7 @@ makey-midi --debug connect "Microsoft GS Wavetable Synth"
 ## Config
 
 Below is an example `config.toml` file.
+If no config file is found when running, makey-midi will fall back to the default config shown below.
 The `channel` defined what channel the midi events are sent on.
 The `keymap` is the main part where you map keyboard keys to midi notes.
 A list of all possible key values is in the dropdown below, and a table of midi notes can be found [here](https://www.inspiredacoustics.com/en/MIDI_note_numbers_and_center_frequencies).
