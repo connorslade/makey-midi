@@ -6,9 +6,12 @@ Lets you use a [Makey Makey](https://makeymakey.com) to send midi commands!
 When run, this program will load the config file and either create a virtual midi output port or connect to another midi device.
 Pressing the keyboard keys defined in the config file will then send their respective note values.
 
-You may want to consider [remapping](https://makeymakey.com/pages/remap) your Makey Makey so you can make use of the click button and so any arrow key inputs don't mess with any synth you have open.
+You may want to consider [remapping](https://makeymakey.com/pages/remap) your Makey Makey so you can make use of the click button and so any arrow key inputs don't mess with any synth you have opened.
 
 ## Usage
+
+To install, you can download the latest binary from [releases](https://github.com/Basicprogrammer10/makey-midi/releases).
+Alternatively, you can build from source, either by cloning the repo or with `cargo install makey-midi`.
 
 After installing, there are two main ways to run the application.
 To connect to an existing midi device or create a new virtual output port.
@@ -173,3 +176,4 @@ keymap = [
 - Function
 
 </details>
+
