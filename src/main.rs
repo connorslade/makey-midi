@@ -1,12 +1,13 @@
 use std::{collections::HashSet, fs};
 
 use anyhow::Result;
-use midir::{MidiOutput, MidiOutputConnection};
+use clap::Parser;
+use midir::MidiOutputConnection;
 use midly::{live::LiveEvent, num::u7, MidiMessage};
 use rdev::{listen, Event, EventType, Key};
 
-use crate::config::Config;
-
+use crate::{args::Args, config::Config};
+mod args;
 mod config;
 
 struct MakeyMidi {
@@ -16,17 +17,14 @@ struct MakeyMidi {
 }
 
 fn main() -> Result<()> {
+    let args = Args::parse();
+
     let raw_config = fs::read_to_string("config.toml")?;
     let config = toml::from_str::<Config>(&raw_config)?;
 
-    let output = MidiOutput::new("makey-midi output")?;
-    let port = output.ports();
-    let port = port.iter().next().unwrap();
-    let output = output.connect(port, "makey-midi output")?;
-
     let mut app = MakeyMidi {
         config,
-        output,
+        output: args.midi.midi_device()?,
         pressed: HashSet::new(),
     };
     if let Err(error) = listen(move |x| callback(&mut app, x)) {

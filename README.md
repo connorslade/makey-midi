@@ -2,7 +2,7 @@
 
 # makey-midi [![Build](https://github.com/Basicprogrammer10/makey-midi/actions/workflows/rust.yml/badge.svg)](https://github.com/Basicprogrammer10/makey-midi/actions/workflows/rust.yml)
 
-Use a [Makey Makey](https://makeymakey.com) to send midi commands!
+Lets you use a [Makey Makey](https://makeymakey.com) to send midi commands!
 When run, this program will load the config file and create a virtual midi out port named 'makey-midi'.
 Pressing the keys defined in the config file will then send their respective note values.
 

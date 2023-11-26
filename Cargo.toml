@@ -3,12 +3,12 @@ name = "makey-midi"
 version = "0.1.0"
 edition = "2021"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
 [dependencies]
 anyhow = "1.0.75"
+clap = { version = "4.4.8", features = ["derive"] }
 midir = "0.9.1"
 midly = "0.5.3"
 rdev = { version = "0.5.3", features = ["serialize"] }
 serde = { version = "1.0.193", features = ["derive"] }
+strsim = "0.10.0"
 toml = "0.8.8"
