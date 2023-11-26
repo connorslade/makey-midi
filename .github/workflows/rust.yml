@@ -12,6 +12,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-
+      - name: Install Dependencies
+        if: runner.os == 'Linux'
+        run: sudo apt install libasound2-dev libx11-dev libxi-dev xorg-dev
       - name: Build
         run: cargo build

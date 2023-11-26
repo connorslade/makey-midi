@@ -2,6 +2,8 @@ use std::{path::PathBuf, process};
 
 use anyhow::{Context, Result};
 use clap::Parser;
+#[cfg(target_os = "linux")]
+use midir::os::unix::VirtualOutput;
 use midir::{MidiOutput, MidiOutputConnection};
 
 #[derive(Parser)]
@@ -66,7 +68,7 @@ impl Midi {
                     }
                 };
                 println!("Connecting to port {}", input.port_name(&port)?);
-                input.connect(&port, "makey-midi output")?
+                input.connect(&port, "makey-midi output").unwrap()
             }
             Midi::List => {
                 let input = MidiOutput::new("42synth input")?;
