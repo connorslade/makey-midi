@@ -1,5 +1,8 @@
 [package]
 name = "makey-midi"
+description = "Use a Makey Makey to send midi commands."
+repository = "https://github.com/Basicprogrammer10/makey-midi"
+license-file = "LICENSE"
 version = "0.1.0"
 edition = "2021"
 
