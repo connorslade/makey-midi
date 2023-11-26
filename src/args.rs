@@ -6,8 +6,14 @@ use midir::{MidiOutput, MidiOutputConnection};
 
 #[derive(Parser)]
 pub struct Args {
+    /// The location of the config file.
+    /// Defaults to `config.toml` in the current directory.
     #[clap(short, long)]
     pub config: Option<PathBuf>,
+
+    /// Logs each key event to stdout.
+    #[clap(short, long)]
+    pub debug: bool,
 
     #[clap(subcommand)]
     pub midi: Midi,
@@ -30,6 +36,7 @@ pub enum Midi {
     },
 
     /// Lists all available MIDI devices.
+    /// For use with the `connect` subcommand.
     List,
 }
 

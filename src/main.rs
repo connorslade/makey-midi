@@ -1,4 +1,4 @@
-use std::{collections::HashSet, fs};
+use std::{collections::HashSet, fs, path::PathBuf};
 
 use anyhow::Result;
 use clap::Parser;
@@ -11,6 +11,7 @@ mod args;
 mod config;
 
 struct MakeyMidi {
+    debug: bool,
     config: Config,
     output: MidiOutputConnection,
     pressed: HashSet<Key>,
@@ -19,10 +20,12 @@ struct MakeyMidi {
 fn main() -> Result<()> {
     let args = Args::parse();
 
-    let raw_config = fs::read_to_string("config.toml")?;
+    let raw_config =
+        fs::read_to_string(args.config.unwrap_or_else(|| PathBuf::from("config.toml")))?;
     let config = toml::from_str::<Config>(&raw_config)?;
 
     let mut app = MakeyMidi {
+        debug: args.debug,
         config,
         output: args.midi.midi_device()?,
         pressed: HashSet::new(),
@@ -42,6 +45,10 @@ fn callback(app: &mut MakeyMidi, event: Event) {
             }
 
             let key = app.config.get_key(e);
+            if key.is_some() && app.debug {
+                println!("Key pressed: {:?}", e);
+            }
+
             key.map(|x| MidiMessage::NoteOn {
                 key: x.into(),
                 vel: u7::max_value(),
